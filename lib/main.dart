@@ -24,6 +24,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  TextEditingController _editingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,10 +53,47 @@ class _HomePageState extends State<HomePage> {
         ],*/
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          print('fab');
+        onPressed: () {
+          /*ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Clicou no action button'),
+              action: SnackBarAction(
+                label: 'Desfazer',
+                onPressed: () {
+                  print('clicou no desfazer');
+                },
+              ),
+            ),
+          );*/
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Título do alerta'),
+                content: Text('Conteúdo do alerta'),
+                actions: [
+                  TextField(
+                    controller: _editingController,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Cancelar'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      print(_editingController.text);
+                    },
+                    child: Text('Ok'),
+                  ),
+                ],
+              );
+            },
+          );
         },
-        child: Icon(Icons.add) ,
+        child: Icon(Icons.add),
       ),
     );
   }
